@@ -24,6 +24,6 @@ jobs:
     - name: Push Docker image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/phish-api:latest
 
-    # - name: Trigger Render Deploy Hook
-    #   run: |
-    #     curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+    - name: Trigger Render Deploy Hook
+      run: |
+        curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
