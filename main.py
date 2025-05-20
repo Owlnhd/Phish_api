@@ -67,13 +67,7 @@ def predict(
     try:
         pred = m.predict(x)[0]
         proba = m.predict_proba(x)[0].tolist()
-        confidence = float(proba[pred])
     except Exception as e:
         raise HTTPException(500, detail=f"prediction error: {e}")
 
-    return {
-        "mode":         mode,
-        "prediction":   int(pred),
-        "probabilities":proba,
-        "confidence":   confidence
-    }
+    return {"mode":mode, "prediction":int(pred), "probabilities":proba}
