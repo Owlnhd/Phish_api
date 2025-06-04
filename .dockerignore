@@ -5,6 +5,3 @@ drive/
 __pycache__/
 *.pyc
 .git
-# 모델 파일은 위 Dockerfile에서 명시적으로 복사하므로 제외
-rf_model_webOut01.pkl
-rf_model_webIn01.pkl
