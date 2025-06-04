@@ -3,8 +3,8 @@
 import re, socket
 from urllib.parse import urlparse
 from datetime import datetime
+from bs4 import BeautifulSoup
 
-# URL 기반 피처
 def Prefix_Suffix(url, **kwargs):
     return int('-' in urlparse(url).netloc)
 
@@ -15,7 +15,8 @@ def having_At_Symbol(url, **kwargs):
     return int('@' in url)
 
 def Shortining_Service(url, **kwargs):
-    pattern = r\"bit\.ly|tinyurl\.com|goo\.gl|ow\.ly|t\.co|tiny\.cc\"
+    # 백슬래시 없이 정규식 패턴만 쓴다
+    pattern = r"bit\.ly|tinyurl\.com|goo\.gl|ow\.ly|t\.co|tiny\.cc"
     return int(bool(re.search(pattern, url)))
 
 def URL_Length(url, **kwargs):
@@ -32,7 +33,6 @@ def having_IP_Address(url, **kwargs):
 def having_Sub_Domain(url, **kwargs):
     return int(len(urlparse(url).netloc.split('.')) - 2 > 0)
 
-# SSLfinal_State: response 객체를 받아 판단
 def SSLfinal_State(url, response=None, **kwargs):
     try:
         if response is None:
@@ -41,7 +41,6 @@ def SSLfinal_State(url, response=None, **kwargs):
     except:
         return 0
 
-# 도메인 등록 기간이 1년 미만인지 (short-lived)
 def Domain_registeration_length(url, **kwargs):
     try:
         import whois
@@ -68,7 +67,6 @@ def DNSRecord(url, **kwargs):
     except:
         return 0
 
-# 웹페이지 기반: parsed(BeautifulSoup 객체) 또는 html 문자열을 활용
 def Favicon(url, parsed=None, **kwargs):
     try:
         if parsed is None:
@@ -139,7 +137,6 @@ def Submitting_to_email(url, parsed=None, **kwargs):
 def Abnormal_URL(url, **kwargs):
     return int(urlparse(url).netloc not in url)
 
-# Redirect: response.history 길이로 판단
 def Redirect(url, response=None, **kwargs):
     try:
         if response is None:
